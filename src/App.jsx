@@ -101,14 +101,15 @@ const obtenerMetas = async () => {
     }
   }
 
-  const obtenerPlanMejora = async () => {
-    try {
-      const response = await axios.get("https://backend-1-u021.onrender.com/plan-mejora")
-      setPlanMejora(response.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+const obtenerPlanMejora = async () => {
+    try {
+      // Usamos el helper getAuthHeaders que ya creaste antes
+      const response = await axios.get("https://backend-1-u021.onrender.com/plan-mejora", getAuthHeaders())
+      setPlanMejora(response.data)
+    } catch (error) {
+      console.error("Error al obtener el plan de mejora:", error)
+    }
+  }
 
   const obtenerRanking = async () => {
     try {
@@ -910,18 +911,17 @@ obtenerPlanMejora()
         </div>
       ))}
 
-      <h2>Plan de Mejora Automatizado</h2>
-      {planMejora.map((item, index) => (
-        <div className="card" key={index}>
-          <strong>{item.usuario}</strong>
-          <ul>
-            {item.recomendaciones?.map((r, i) => (
-              <li key={i}>{r}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
-
+    <h2>Plan de Mejora Automatizado</h2>
+      {planMejora.length > 0 ? (
+        planMejora.map((item, index) => (
+          <div className="card" key={index}>
+            <p>{item.recomendacion}</p>
+            <small>Estado: {item.estado}</small>
+          </div>
+        ))
+      ) : (
+        <p>No hay recomendaciones nuevas en este momento.</p>
+      )}
       <h2>Evaluación Global</h2>
       {evaluacionGlobal.map((item, index) => (
         <div className="card" key={index}>
