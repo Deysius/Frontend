@@ -78,16 +78,17 @@ function App() {
       console.log(error)
     }
   }
-
-  const obtenerMetas = async () => {
-    try {
-      const response = await axios.get("https://backend-1-u021.onrender.com/metas")
-      setMetas(response.data)
-    } catch (error) {
-      console.log(error.response)
-    }
-  }
-
+const getAuthHeaders = () => ({
+  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+});
+const obtenerMetas = async () => {
+  try {
+    const response = await axios.get("https://backend-1-u021.onrender.com/metas", getAuthHeaders());
+    setMetas(response.data);
+  } catch (error) {
+    console.log("Error al obtener metas:", error);
+  }
+};
   const obtenerProyectos = async () => {
     try {
       const token = localStorage.getItem("token")
@@ -212,38 +213,35 @@ function App() {
     } 
   }
 
-  const crearMeta = async () => {
-    try {
-      await axios.post("https://backend-1-u021.onrender.com/metas", {
-        titulo: tituloMeta,
-        objetivo: Number(objetivoMeta),
-        prioridad: prioridadMeta
-      })
-      obtenerMetas()
-      setTituloMeta("")
-      setObjetivoMeta("")
-      setPrioridadMeta("Alta")
-      alert("Meta creada")
-    } catch (error) {
-      console.log(error)
-      alert(JSON.stringify(error.response?.data))
-    }
-  }
+ const crearMeta = async () => {
+  try {
+    await axios.post("https://backend-1-u021.onrender.com/metas", {
+      titulo: tituloMeta,
+      objetivo: Number(objetivoMeta),
+      prioridad: prioridadMeta
+    }, getAuthHeaders()); // <--- AQUÍ ESTÁ EL SECRETO
+    
+    obtenerMetas(); // Refresca la lista después de crear
+    setTituloMeta("");
+    setObjetivoMeta("");
+    alert("Meta creada");
+  } catch (error) {
+    alert("Error al crear meta");
+  }
+};
+// En tu App.js, asegúrate de que esto esté así:
 const actualizarProgresoMeta = async (id, valorProgreso) => {
     try {
-      await axios.put(`https://backend-1-u021.onrender.com/metas/${id}/progreso`, {
-        progreso: Number(valorProgreso)
-      })
-      alert("¡Progreso de meta actualizado!")
-      
-      // RECARGAMOS TODO EL TABLERO PARA QUE RECALCULE EN TIEMPO REAL
-      obtenerMetas()
-      obtenerPlanMejora() // <-- Esto hará que la recomendación desaparezca si superas el 50%
+        await axios.put(`https://backend-1-u021.onrender.com/metas/${id}/progreso`, {
+            progreso: Number(valorProgreso)
+        }, getAuthHeaders()); // <--- ¡Importante el header aquí también!
+        
+        obtenerMetas(); 
+        alert("¡Progreso actualizado!");
     } catch (error) {
-      console.log(error)
-      alert("Error al actualizar la meta")
+        alert("Error al actualizar");
     }
-  }
+}
 
   const crearAplicacion = async () => {
     try {
