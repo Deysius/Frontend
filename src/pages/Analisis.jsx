@@ -3,6 +3,7 @@ import axios from "axios"
 import jsPDF from "jspdf"
 import autoTable from "jspdf-autotable"
 import html2canvas from "html2canvas"
+import api from "../api";
 import {
     BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer,
     PieChart, Pie, Cell, Legend, ComposedChart, Line
@@ -28,9 +29,11 @@ function Analisis() {
                     { url: "analisis-proyectos", setter: setProyectos },
                     { url: "uso-aplicaciones", setter: setUsoApps }
                 ]
-                await Promise.all(endpoints.map(e => 
-                    axios.get(`http://127.0.0.1:5000/${e.url}`).then(res => e.setter(res.data))
-                ))
+               await Promise.all(
+    endpoints.map(e =>
+        api.get(`/${e.url}`).then(res => e.setter(res.data))
+    )
+)
             } catch (error) { console.error("Error cargando datos:", error) }
             finally { setLoading(false) }
         }
