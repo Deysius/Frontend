@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import "./App.css"
 import Analisis from "./pages/Analisis"
-import PrivateRoute from "./PrivateRoute";
 
 function App() {
   // ESTADOS ANALÍTICOS Y OPERATIVOS
