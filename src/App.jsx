@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import axios from "axios"
 import "./App.css"
 import Analisis from "./pages/Analisis"
+import PrivateRoute from "./PrivateRoute";
 
 function App() {
   // ESTADOS ANALÍTICOS Y OPERATIVOS
@@ -74,7 +75,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
 
   const obtenerComparacion = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/comparacion")
+      const response = await axios.get("https://backend-1-u021.onrender.com/comparacion")
       setComparacion(response.data)
     } catch (error) {
       console.log(error)
@@ -87,7 +88,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
     const token = localStorage.getItem("token")
 
     const response = await axios.get(
-      "http://127.0.0.1:5000/metas",
+      "https://backend-1-u021.onrender.com/metas",
       {
         headers: {
           Authorization: `Bearer ${token}`
@@ -106,7 +107,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
   const obtenerProyectos = async () => {
     try {
       const token = localStorage.getItem("token")
-      const response = await axios.get("http://127.0.0.1:5000/proyectos", {
+      const response = await axios.get("https://backend-1-u021.onrender.com/proyectos", {
         headers: { Authorization: `Bearer ${token}` }
       })
       setProyectos(response.data)
@@ -117,7 +118,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
 
   const obtenerPlanMejora = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/plan-mejora")
+      const response = await axios.get("https://backend-1-u021.onrender.com/plan-mejora")
       setPlanMejora(response.data)
     } catch (error) {
       console.log(error)
@@ -126,7 +127,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
 
   const obtenerRanking = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/ranking")
+      const response = await axios.get("https://backend-1-u021.onrender.com/ranking")
       setRanking(response.data)
     } catch (error) {
       console.log(error)
@@ -135,7 +136,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
 
   const obtenerAnalisisProyectos = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/analisis-proyectos")
+      const response = await axios.get("https://backend-1-u021.onrender.com/analisis-proyectos")
       setAnalisisProyectos(response.data)
     } catch(error) {
       console.log(error)
@@ -144,7 +145,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
 
   const obtenerAplicaciones = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/aplicaciones")
+      const response = await axios.get("https://backend-1-u021.onrender.com/aplicaciones")
       setAplicaciones(response.data)
     } catch (error) {
       console.log(error)
@@ -154,7 +155,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
   const obtenerRoles = async () => {
     try {
       const token = localStorage.getItem("token")
-      const response = await axios.get("http://127.0.0.1:5000/roles", {
+      const response = await axios.get("https://backend-1-u021.onrender.com/roles", {
         headers: { Authorization: `Bearer ${token}` }
       })
       setRoles(response.data)
@@ -166,7 +167,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
   const obtenerUsuarios = async () => {
     try {
       const token = localStorage.getItem("token")
-      const response = await axios.get("http://127.0.0.1:5000/usuarios", {
+      const response = await axios.get("https://backend-1-u021.onrender.com/usuarios", {
         headers: { Authorization: `Bearer ${token}` }
       })
       setUsuarios(response.data)
@@ -177,7 +178,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
 
   const obtenerHistoricos = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/historico")
+      const response = await axios.get("https://backend-1-u021.onrender.com/historico")
       setHistoricos(response.data)
     } catch(error) {
       console.log(error)
@@ -186,7 +187,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
 
   const obtenerPromedioSemestral = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/promedio-semestral")
+      const response = await axios.get("https://backend-1-u021.onrender.com/promedio-semestral")
       setPromediosSemestrales(response.data)
     } catch(error) {
       console.log(error)
@@ -195,7 +196,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
 
   const obtenerEvaluacionGlobal = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/evaluacion-global")
+      const response = await axios.get("https://backend-1-u021.onrender.com/evaluacion-global")
       setEvaluacionGlobal(response.data)
     } catch(error) {
       console.log(error)
@@ -205,7 +206,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
   const obtenerUsoAplicaciones = async () => {
     try {
       // CORREGIDO: Removido el prefijo "/api" para alinearse con tus otras rutas
-      const response = await axios.get("http://127.0.0.1:5000/uso-aplicaciones?global=true")
+      const response = await axios.get("https://backend-1-u021.onrender.com/uso-aplicaciones?global=true")
       console.log("DATOS DE APLICACIONES RECIBIDOS:", response.data)
       setUsoAplicaciones(response.data)
     } catch(error) {
@@ -216,7 +217,7 @@ const [mostrarAnalisis, setMostrarAnalisis] = useState(false)
   // ACCIONES Y CREACIÓN DE REGISTROS (POST)
   const login = async () => {
     try {
-      const response = await axios.post("http://127.0.0.1:5000/login", { correo, password })
+      const response = await axios.post("https://backend-1-u021.onrender.com/login", { correo, password })
       localStorage.setItem("token", response.data.token)
       localStorage.setItem("usuario", JSON.stringify(response.data.usuario))
       setUsuario(response.data.usuario)
@@ -233,7 +234,7 @@ const crearMeta = async () => {
     const token = localStorage.getItem("token")
 
     await axios.post(
-      "http://127.0.0.1:5000/metas",
+     "https://backend-1-u021.onrender.com/metas",
       {
         titulo: tituloMeta,
         objetivo: Number(objetivoMeta),
@@ -272,7 +273,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
     const token = localStorage.getItem("token")
 
     await axios.put(
-      `http://127.0.0.1:5000/metas/${id}/progreso`,
+      `https://backend-1-u021.onrender.com/metas/${id}/progreso`,
       {
         progreso: Number(valorProgreso)
       },
@@ -301,7 +302,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
 }
   const crearAplicacion = async () => {
     try {
-      await axios.post("http://127.0.0.1:5000/aplicaciones", { nombre: nombreApp })
+      await axios.post("https://backend-1-u021.onrender.com/aplicaciones", { nombre: nombreApp })
       setNombreApp("")
       alert("Aplicación creada")
       obtenerAplicaciones()
@@ -317,7 +318,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
     const token = localStorage.getItem("token")
 
     await axios.post(
-      "http://127.0.0.1:5000/proyectos",
+      "https://backend-1-u021.onrender.com/proyectos",
       {
         nombre: nombreProyecto,
         descripcion: descripcionProyecto,
@@ -350,7 +351,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
 
   const crearAvance = async () => {
     try {
-      await axios.post("http://127.0.0.1:5000/avances", {
+      await axios.post("https://backend-1-u021.onrender.com/avances", {
         fecha: fechaAvance,
         horas_trabajadas: Number(horasTrabajadas),
         descripcion: descripcionAvance,
@@ -369,7 +370,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
 
   const crearActividad = async () => {
     try {
-      await axios.post("http://127.0.0.1:5000/actividad", {
+      await axios.post("https://backend-1-u021.onrender.com/actividad", {
         fecha: fechaActividad,
         tiempo_activo: Number(tiempoActivo),
         tiempo_inactivo: Number(tiempoInactivo),
@@ -407,7 +408,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
         return
       }
       // CORREGIDO: Enviamos el rol_id seleccionado en el formulario, no el del admin
-      await axios.post("http://127.0.0.1:5000/rol-aplicacion", {
+      await axios.post("https://backend-1-u021.onrender.com/rol-aplicacion", {
         rol_id: Number(rolSeleccionadoParaApp),
         aplicacion_id: Number(appRolId),
         es_productiva: esProductiva
@@ -424,7 +425,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
   const crearRol = async () => {
     try {
       const token = localStorage.getItem("token")
-      await axios.post("http://127.0.0.1:5000/roles", {
+      await axios.post("https://backend-1-u021.onrender.com/roles", {
         nombre: nombreRol,
         descripcion: descripcionRol
       }, {
@@ -442,7 +443,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
   const crearUsuario = async () => {
     try {
       const token = localStorage.getItem("token")
-      await axios.post("http://127.0.0.1:5000/usuarios", {
+      await axios.post("https://backend-1-u021.onrender.com/usuarios", {
         nombre: nombreUsuario,
         correo: correoUsuario,
         password: passwordUsuario,
@@ -469,7 +470,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
 
     try {
       const token = localStorage.getItem("token")
-      await axios.delete(`http://127.0.0.1:5000/roles/${id}`, {
+      await axios.delete(`https://backend-1-u021.onrender.com/roles/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       alert("Rol eliminado con éxito")
@@ -485,7 +486,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
 
     try {
       const token = localStorage.getItem("token")
-      await axios.delete(`http://127.0.0.1:5000/usuarios/${id}`, {
+      await axios.delete(`https://backend-1-u021.onrender.com/usuarios/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       alert("Usuario eliminado con éxito")
@@ -502,7 +503,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
     if (!nuevoNombre) return
 
     const token = localStorage.getItem("token")
-    await axios.put(`http://127.0.0.1:5000/roles/${rol.id}`, {
+    await axios.put(`https://backend-1-u021.onrender.com/roles/${rol.id}`, {
       nombre: nuevoNombre,
       descripcion: nuevaDescripcion
     }, {
@@ -518,7 +519,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
     if (!nuevoNombre || !nuevoCorreo) return
 
     const token = localStorage.getItem("token")
-    await axios.put(`http://127.0.0.1:5000/usuarios/${usuario.id}`, {
+    await axios.put(`https://backend-1-u021.onrender.com/usuarios/${usuario.id}`, {
       nombre: nuevoNombre,
       correo: nuevoCorreo,
       rol_id: Number(nuevoRol)
@@ -530,7 +531,7 @@ const actualizarProgresoMeta = async (id, valorProgreso) => {
 
   const crearHistorico = async () => {
     try {
-      await axios.post("http://127.0.0.1:5000/historico", {
+      await axios.post("https://backend-1-u021.onrender.com/historico", {
         periodo: periodoHistorico,
         indice_productividad: Number(indiceHistorico),
         usuario_id: Number(usuarioHistorico)
